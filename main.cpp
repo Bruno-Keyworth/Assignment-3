@@ -13,13 +13,10 @@
 // Main program
 int main()
 {
-  particle p("electron", 0.511, -1, 5);
-  p.set_type("muon");
-  p.print_type();
+  Particle p("antimuon", 0.5);
+  p.print_data();
   
   detector d("tracker");
-  
-  p.function();
   // Create the following particles:
   // two electrons, four muons, one antielectron, one antimuon
   // Use the parameterised constructor
