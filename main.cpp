@@ -14,7 +14,10 @@
 int main()
 {
   Particle p("antimuon", 0.5);
-  p.print_data();
+  p.printData();
+
+  Particle q(106, 2e8, 1);
+  q.printData();
   
   detector d("tracker");
   // Create the following particles:
