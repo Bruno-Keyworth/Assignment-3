@@ -10,10 +10,7 @@
 #include<vector>
 #include<cmath>
 
-std::string add_spaces(std::string str, int length)
-{ // Fills out string to given length by adding spaces to the end
-  str.append(length - str.size(), ' ');
-  return str;
-}
+std::string add_spaces(std::string str, int length);
+std::string to_string_trimmed(double value);
 
 #endif

@@ -9,9 +9,8 @@
 #include<cmath>
 #include<algorithm>
 #include "particle.h"
-// test test test
+#include "functions.h"
 
-// Beginning of particle class
 void Particle::setType(std::string ptype)
 {
   if(ptype=="positron") { ptype = "antielectron"; }
@@ -54,7 +53,13 @@ void Particle::setMass(double pmass)
 
 void Particle::printData()
 {
-  std::cout << type << " " << charge << " " << beta << " " << rest_mass << std::endl;
+  std::string row;
+  row += add_spaces(type, 13);
+  row += " | " + add_spaces(to_string_trimmed(rest_mass), 10);
+  std::string charge_string = (charge > 0) ? "+1        " : "-1        ";
+  row += " | " + charge_string;
+  row += " | " + to_string_trimmed(beta);
+  std::cout<<row<<std::endl;
 }
 
 void Particle::trySet(const std::function<void()>& setter)

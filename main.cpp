@@ -17,15 +17,15 @@ int main()
   std::vector<std::string> particle_types = {"electron", "electron", "muon", "muon", "muon", "muon", "antielectron", "antimuon"};
   particles.reserve(particle_types.size());
   
-  std::cout<<std::string(80, '-')<<std::endl;
+  std::cout<<std::string(50, '-')<<std::endl;
   std::cout<<"Particle Type | Mass (MeV) | Charge (e) | Beta "<<std::endl;
-  std::cout<<std::string(80, '-')<<std::endl;
+  std::cout<<std::string(50, '-')<<std::endl;
   for(std::string ptype : particle_types)
   {
     particles.emplace_back(ptype, 0.5);
     particles.back().printData();
   }
-  std::cout<<std::string(80, '-')<<std::endl;
+  std::cout<<std::string(50, '-')<<std::endl;
 
   Detector tracker("tracker", true);
   Detector calorimeter("calorimeter", true);
