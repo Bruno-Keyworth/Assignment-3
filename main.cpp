@@ -13,27 +13,41 @@
 // Main program
 int main()
 {
-  Particle p("antimuon", 0.5);
-  p.printData();
-  Particle q(0.511, 2e8, -1);
-  q.printData();
+  std::vector<Particle> particles;
+  std::vector<std::string> particle_types = {"electron", "electron", "muon", "muon", "muon", "muon", "antielectron", "antimuon"};
+  particles.reserve(particle_types.size());
   
-  Detector d("muon chamber");
-  d.switchOn();
-  d.detect(p);
-  d.detect(q);
-  d.printData();
-  // Create the following particles:
-  // two electrons, four muons, one antielectron, one antimuon
-  // Use the parameterised constructor
+  std::cout<<std::string(80, '-')<<std::endl;
+  std::cout<<"Particle Type | Mass (MeV) | Charge (e) | Beta "<<std::endl;
+  std::cout<<std::string(80, '-')<<std::endl;
+  for(std::string ptype : particle_types)
+  {
+    particles.emplace_back(ptype, 0.5);
+    particles.back().printData();
+  }
+  std::cout<<std::string(80, '-')<<std::endl;
 
-  // Print out the data from all the particles (put them in a vector)
-
-  // Create the following detectors: a tracker, a calorimeter, a muon chamber
-
-  // Pass the list of particles into each detector
-
-  // Print a summary of how many particles were detected
+  Detector tracker("tracker", true);
+  Detector calorimeter("calorimeter", true);
+  Detector muon_chamber("muon chamber", true);
+  for(int i=0; i<particles.size(); ++i)
+  {
+    tracker.detect(particles[i]);
+    calorimeter.detect(particles[i]);
+    muon_chamber.detect(particles[i]);
+  }
+  tracker.switchOff();
+  calorimeter.switchOff();
+  muon_chamber.switchOff();
+  std::cout<<std::string(50, '-')<<std::endl;
+  std::cout<<"Detector     | e- | e+ | mu- | mu+ | total "<<std::endl;
+  std::cout<<std::string(50, '-')<<std::endl;
+  tracker.printData();
+  calorimeter.printData();
+  muon_chamber.printData();
+  std::cout<<std::string(50, '-')<<std::endl;
+  
+  
 
   return 0;
 }

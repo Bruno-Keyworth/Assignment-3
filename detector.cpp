@@ -9,6 +9,7 @@
 #include<cmath>
 #include<numeric>
 #include "detector.h"
+#include "functions.h"
 
 bool Detector::detect(Particle& p)
 {
@@ -18,7 +19,7 @@ bool Detector::detect(Particle& p)
   if (index != can_detect.end())
   {
     count[std::distance(can_detect.begin(), index)]++;
-    std::cout<<ptype<<" was detected"<<std::endl;
+    std::cout<<ptype<<" was detected by "<<type<<std::endl;
     return true;
   } else return false;
 }
@@ -41,17 +42,19 @@ int Detector::getCount(std::string ptype)
   if (index != can_detect.end())
   {
     return count[std::distance(can_detect.begin(), index)];
-  } else throw "Error: particle type not recognised: " + ptype;
+  } else return 0;
 }
 
 void Detector::printData()
 {
-  std::cout<<"Data for "<<type<<":"<<std::endl;
-  for(std::string ptype : can_detect)
-  {
-    std::cout<<ptype<<" count is "<<getCount(ptype)<<std::endl;
-  }
-  std::cout<<"Total count is "<<getCount()<<std::endl;
+  std::string row;
+  row += add_spaces(type, 12);
+  row += " | " + add_spaces(std::to_string(getCount("electron")), 2);
+  row += " | " + add_spaces(std::to_string(getCount("antielectron")), 2);
+  row += " | " + add_spaces(std::to_string(getCount("muon")), 3);
+  row += " | " + add_spaces(std::to_string(getCount("antimuon")), 3);
+  row += " | " + std::to_string(getCount());
+  std::cout<<row<<std::endl;
 }
 
 void Detector::trySet(const std::function<void()>& setter)

@@ -36,17 +36,8 @@ public:
   bool detect(Particle& p);
   
   Detector() = default;
-  Detector(std::string dtype) { trySet([&] { setType(dtype); }); }
+  Detector(std::string dtype, bool on = false) { trySet([&] { setType(dtype); }); status = on;}
   ~Detector(){ std::cout<<"Destroying: "<<type<<std::endl; }
 };
 
 #endif
-// Functionalities needed, in addition to constructor/destructor/setters/getters (see slides on BB):
-// - write a function that takes a particle 
-//   and returns a bool and a print-out on whether this type of detector detected the particle
-//   depending on the detector/particle combination (see slides on BB)
-// - have data members that keep track of how many particles were detected by this particular detector, 
-//   and of which type
-// - write a function (accessor) that prints how many particles passed through this detector
-
-// End of detector class
