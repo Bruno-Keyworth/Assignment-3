@@ -15,11 +15,14 @@ int main()
 {
   Particle p("antimuon", 0.5);
   p.printData();
-
-  Particle q(106, 2e8, 1);
+  Particle q(0.511, 2e8, -1);
   q.printData();
   
-  detector d("tracker");
+  Detector d("muon chamber");
+  d.switchOn();
+  d.detect(p);
+  d.detect(q);
+  d.printData();
   // Create the following particles:
   // two electrons, four muons, one antielectron, one antimuon
   // Use the parameterised constructor

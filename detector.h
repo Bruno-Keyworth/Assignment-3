@@ -1,6 +1,6 @@
 // PHYS30762 Programming in C++
 // Assignment 3
-// Header file containing particle and detector classes.
+// Definition of detector class.
 // Created by Bruno Keyworth (ID: 11021856) on 23/02/2025.
 #ifndef DETECTOR_H
 #define DETECTOR_H
@@ -9,39 +9,36 @@
 #include<string>
 #include<vector>
 #include<cmath>
+#include"particle.h"
 
-// test test test
-
-// Beginning of particle class
-class detector
+class Detector
 {
 private:
   std::string type;
+  bool status = false; // detector is on if true
+  std::vector<std::string> can_detect;
+  std::vector<int> count; // stores counts of different particle types.
+
+  const double light_speed = 2.99792458e8;
+  const std::vector<std::string> detectors = {"tracker", "calorimeter", "muon chamber"};
+  const std::vector<std::vector<std::string>> detected_particles = {{"electron", "antielectron", "muon", "antimuon"}, {"electron", "antielectron"}, {"muon", "antimuon"}};
+  
+  void trySet(const std::function<void()>& setter);
 
 public:
-  detector() = default;
-  detector(std::string ptype) : type{ptype}{}
-  ~detector(){ std::cout<<"Destroying: "<<type<<std::endl; }
-  void print_type() { std::cout << type << std::endl; }
-  void set_type(std::string ptype){ type = ptype; }
-
-  // Getter functions (accessors) to 
-  // This should include function returning beta value 
-
-  // Setter functions, to change value of data members
-  // Make sure you check input validity before changing something
-  // Hint: you can use the input checking functions you used in assignment 1
-
-  // Function to print info about a particle
-  void print_data();
-
+  void printData();
+  void setType(std::string dtype);
+  void switchOn() { status = true; }
+  void switchOff() { status = false; }
+  std::string getType() const { return type; }
+  int getCount(std::string ptype="all");
+  bool getStatus() const { return status; }
+  bool detect(Particle& p);
+  
+  Detector() = default;
+  Detector(std::string dtype) { trySet([&] { setType(dtype); }); }
+  ~Detector(){ std::cout<<"Destroying: "<<type<<std::endl; }
 };
-
-// Implementation of print_data function goes here
-
-// End of particle class and associated member functions
-
-// Beginning of detector class
 
 #endif
 // Functionalities needed, in addition to constructor/destructor/setters/getters (see slides on BB):
